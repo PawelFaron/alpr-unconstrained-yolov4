@@ -1,0 +1,5 @@
+classes=36
+names=/home/ubuntu/app/configs/ocr.names
+train=/home/ubuntu/app/darknet_data_bw/train.txt
+valid=/home/ubuntu/app/darknet_data_bw/test.txt
+backup=/home/ubuntu/app/yolov4_tiny_backup/

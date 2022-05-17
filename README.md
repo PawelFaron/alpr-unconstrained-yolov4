@@ -1,6 +1,6 @@
 # alpr-unconstrained-yolov4
 
-Project based on https://github.com/sergiomsilva/alpr-unconstrained . The ocr was retained on dataset of more than 40k unique images.
+Project based on https://github.com/sergiomsilva/alpr-unconstrained . The ocr was retained on dataset with more than 40k unique images.
 
 There are 3 model trained: yolov4_csp_sam, yolov4_sam_mish and yolov4_tiny. You can test which one best suits your needs.
 Pretained models can be found here:

@@ -1,0 +1,92 @@
+[project]
+name = "alpr-unconstrained-yolov4"
+version = "0.2.0"
+description = "Automatic license plate recognition with WPOD-Net detector and YOLOv4 OCR."
+readme = "README.md"
+requires-python = ">=3.11,<3.13"
+license = { text = "MIT" }
+authors = [{ name = "Pawel Faron" }]
+dependencies = [
+    "numpy>=2.0,<3",
+    "opencv-python>=4.10,<5",
+    "keras>=3.0,<4",
+    "tensorflow>=2.16,<3",
+]
+
+[project.optional-dependencies]
+dev = [
+    "ruff>=0.6",
+    "mypy>=1.11",
+    "bandit>=1.7",
+    "pyright>=1.1.380",
+    "pytest>=8.0",
+    "httpx>=0.27",
+]
+api = [
+    "fastapi>=0.115",
+    "uvicorn[standard]>=0.30",
+    "python-multipart>=0.0.9",
+]
+convert = [
+    "tf_keras>=2.16",
+]
+
+[project.scripts]
+alpr-detect = "alpr.cli:main"
+alpr-server = "alpr.server:main"
+
+[build-system]
+requires = ["hatchling>=1.25"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/alpr"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py311"
+src = ["src"]
+
+[tool.ruff.lint]
+select = [
+    "E", "F", "W",       # pycodestyle / pyflakes
+    "I",                 # isort
+    "B",                 # bugbear
+    "UP",                # pyupgrade
+    "SIM",               # simplify
+    "RUF",               # ruff specific
+    "N",                 # naming
+    "PL",                # pylint
+    "PERF",              # performance
+    "RET",               # returns
+    "C4",                # comprehensions
+]
+ignore = [
+    "PLR0913",           # too many arguments
+    "PLR2004",           # magic numbers in tests/scripts
+    "PLC0415",           # import not at top level (lazy TF loading)
+]
+
+[tool.ruff.lint.per-file-ignores]
+"scripts/*" = ["T201"]
+
+[tool.mypy]
+python_version = "3.11"
+strict = true
+files = ["src", "scripts"]
+warn_unused_ignores = true
+disallow_untyped_defs = true
+ignore_missing_imports = true
+
+[tool.pyright]
+include = ["src", "scripts"]
+pythonVersion = "3.11"
+typeCheckingMode = "standard"
+reportMissingImports = "warning"
+reportMissingTypeStubs = false
+
+[tool.bandit]
+exclude_dirs = ["tests"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
